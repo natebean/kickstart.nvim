@@ -110,7 +110,7 @@ vim.keymap.set('n', '<leader>l', '<C-w><C-l>', { desc = 'Move focus to the right
 vim.keymap.set('n', '<leader>j', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<leader>k', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-vim.keymap.set('n', '<leader>h', ':noh<return>', { desc = 'no highlight' })
+vim.keymap.set('n', '<leader>o', ':noh<return>', { desc = 'no highlight' })
 vim.keymap.set('n', '<Leader>y', '"+y', { desc = 'Yank to system clipboard' })
 vim.keymap.set('n', '<Leader>p', '"+p', { desc = 'Paste from system clipboard' })
 vim.keymap.set('v', '<Leader>y', '"+y', { desc = 'Yank to system clipboard' })
@@ -749,10 +749,6 @@ require('lazy').setup({
     end,
   },
 
-  -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- place them in the correct locations.
-
   -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
   --
   --  Here are some example plugins that I've included in the Kickstart repository.
@@ -761,13 +757,18 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  -- For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -789,6 +790,40 @@ require('lazy').setup({
     },
   },
 })
+
+local harpoon = require 'harpoon'
+
+-- REQUIRED
+harpoon:setup()
+-- REQUIRED
+
+vim.keymap.set('n', '<leader>a', function()
+  harpoon:list():add()
+end)
+vim.keymap.set('n', '<leader>,', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+
+vim.keymap.set('n', '<leader>nh', function()
+  harpoon:list():select(1)
+end)
+vim.keymap.set('n', '<leader>nj', function()
+  harpoon:list():select(2)
+end)
+vim.keymap.set('n', '<leader>nk', function()
+  harpoon:list():select(3)
+end)
+vim.keymap.set('n', '<leader>nl', function()
+  harpoon:list():select(4)
+end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set('n', '<C-h>', function()
+  harpoon:list():prev()
+end)
+vim.keymap.set('n', '<C-l>', function()
+  harpoon:list():next()
+end)
 
 --[[
 
