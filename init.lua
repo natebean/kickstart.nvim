@@ -1,5 +1,4 @@
--- Set <space> as the leader key
--- See `:help mapleader`
+-- Set <space> as the leader key See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -27,7 +26,7 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -92,10 +91,10 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --  See `:help wincmd` for a list of all window commands
--- vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
--- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
--- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
--- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<C-h>', ':wincmd h<cr>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-l>', ':wincmd l<cr>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-j>', ':wincmd j<cr>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', ':wincmd k<cr>', { desc = 'Move focus to the upper window' })
 --
 -- Custom
 vim.keymap.set('n', '<leader>h', '<C-w><C-h>', { desc = 'Move focus to the left window' })
@@ -110,6 +109,7 @@ vim.keymap.set('v', '<Leader>y', '"+y', { desc = 'Yank to system clipboard' })
 vim.keymap.set('v', '<Leader>p', '"+p', { desc = 'Paste from system clipboard' })
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('n', '<leader>wt', '<cmd>tabedit %<cr>', { desc = 'Open in Tab' })
+vim.keymap.set('n', '<leader>wT', '<cmd>wincmd T<cr>', { desc = 'Open in Tab' })
 vim.keymap.set('n', '<leader>wH', '<cmd>split<cr>', { desc = 'Horz split' })
 vim.keymap.set('n', '<leader>wV', '<cmd>vsplit<cr>', { desc = 'Vertical split' })
 vim.keymap.set('n', 'H', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
@@ -591,7 +591,6 @@ require('lazy').setup({
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
           ['<C-y>'] = cmp.mapping.confirm { select = true },
-          ['<C-Enter>'] = cmp.mapping.confirm { select = true },
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -738,14 +737,13 @@ require('lazy').setup({
       'TmuxNavigatePrevious',
     },
     keys = {
-      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
-      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
-      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
-      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
-      { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
+      { '<c-h>', ':TmuxNavigateLeft<cr>' },
+      { '<c-j>', ':TmuxNavigateDown<cr>' },
+      { '<c-k>', ':TmuxNavigateUp<cr>' },
+      { '<c-l>', ':TmuxNavigateRight<cr>' },
+      { '<c-\\>', ':TmuxNavigatePrevious<cr>' },
     },
   },
-
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   -- For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
